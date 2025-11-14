@@ -2,35 +2,37 @@
 #ifndef __RAY_CAST_HPP__
 #define __RAY_CAST_HPP__
 
-// 光线投射渲染器头文件
-// 定义了光线投射渲染器的核心功能
-
 #include "scene/Scene.hpp"
 #include "Camera.hpp"
 #include "intersections/intersections.hpp"
 #include "shaders/ShaderCreator.hpp"
+#include "KDTree.hpp"  // 添加KDTree包含
+#include <chrono>      // 添加时间库
+#include <iostream>    // 添加iostream用于输出
 
 namespace RayCast
 {
     using namespace NRenderer;
 
-    // 光线投射渲染器类
-    // 实现了基本的光线投射渲染算法
     class RayCastRenderer
     {
     private:
-        SharedScene spScene;                    // 场景指针
-        Scene& scene;                           // 场景引用
-        RayCast::Camera camera;                 // 相机
-        vector<SharedShader> shaderPrograms;    // 着色器程序列表
+        SharedScene spScene;
+        Scene& scene;
+        RayCast::Camera camera;
+        vector<SharedShader> shaderPrograms;
+        std::unique_ptr<KDTree> kdTree;      // 添加KDTree成员
+        bool useAcceleration;                // 是否使用加速结构
 
     public:
         // 构造函数
         // spScene: 场景指针
-        RayCastRenderer(SharedScene spScene)
+        // useAccel: 是否使用KD-Tree加速
+        RayCastRenderer(SharedScene spScene, bool useAccel = true)
             : spScene               (spScene)
             , scene                 (*spScene)
             , camera                (spScene->camera)
+            , useAcceleration       (useAccel)  // 初始化加速标志
         {}
 
         // 析构函数
@@ -62,6 +64,13 @@ namespace RayCast
         // r: 输入光线
         // 返回最近的相交记录
         HitRecord closestHit(const Ray& r);
+        
+        // 打印性能统计报告
+        // renderTime: 渲染时间
+        // totalTime: 总时间
+        void printPerformanceReport(
+            const std::chrono::milliseconds& renderTime, 
+            const std::chrono::milliseconds& totalTime);
     };
 }
 
