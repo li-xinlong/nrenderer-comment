@@ -1,48 +1,31 @@
 Begin Material
 
+# 漫反射白墙（Lambert）
 Material White
 Prop diffuseColor RGB 0.73 0.73 0.73
 
+# 漫反射红墙（Lambert）
 Material Red
 Prop diffuseColor RGB 0.65 0.05 0.05
 
+# 漫反射绿墙（Lambert）
 Material Green
 Prop diffuseColor RGB 0.12 0.45 0.15
 
-Material Blue
-Prop diffuseColor RGB 0.1 0.2 0.6
-
-Material Yellow
-Prop diffuseColor RGB 0.8 0.8 0.1
-
-Material Phong_Mirror
-Prop diffuseColor RGB 0.1 0.1 0.1
-Prop specularColor RGB 0.9 0.9 0.9
-Prop specularEx Float 1000
-
-Material Phong_Glass
-Prop diffuseColor RGB 0.1 0.1 0.1
-Prop specularColor RGB 0.8 0.8 0.8
-Prop specularEx Float 50
-
-Material Phong_Metal
-Prop diffuseColor RGB 0.3 0.3 0.3
-Prop specularColor RGB 0.7 0.7 0.7
-Prop specularEx Float 20
-
-Material Phong_Plastic
-Prop diffuseColor RGB 0.4 0.4 0.8
-Prop specularColor RGB 0.5 0.5 0.5
-Prop specularEx Float 10
+# 玻璃材质（用于焦散）——dielectric，无漫反射
+Material Glass 2
+Prop ior Float 1.5
+Prop diffuseColor RGB 0.0 0.0 0.0
+Prop specularColor RGB 1.0 1.0 1.0
 
 End
 
+
 Begin Model
 
-Model CornellBox
+Model Wall
 Translation 0.0 0.0 1028.0
 
-# 康奈尔盒基本结构
 Plane LeftWall Red
 N  -1.0 0.0 0.0
 P 278.0 278.0 278.0
@@ -51,394 +34,82 @@ V 0 0 -556.0
 
 Plane RightWall Green
 N 1.0 0.0 0.0
-P -278.0 278.0 278
-U 0 -556 0
+P -278.0 278.0 278.0
+U 0 -556.0 0
 V 0 0 -556.0
 
 Plane TopWall White
 N 0.0 -1.0 0.0
-P 278.0 278.0 278
-U -556 0 0
-V 0 0 -556
+P 278.0 278.0 278.0
+U -556.0 0 0
+V 0 0 -556.0
 
 Plane BottomWall White
 N 0.0 1.0 0.0
-P 278.0 -278.0 278
-U -556 0 0
-V 0 0 -556
+P 278.0 -278.0 278.0
+U -556.0 0 0
+V 0 0 -556.0
 
 Plane BackWall White
 N 0.0 0.0 -1.0
-P 278.0 278.0 278
-U -556 0 0
-V 0 -556 0
+P 278.0 278.0 278.0
+U -556.0 0 0
+V 0 -556.0 0
+
+
 
 End
 
+
 Begin Model
 
-Model SphereCluster1
-Translation -150 -228 1100
+Model Sphere
+Translation -100 -228 1100
 
-# 球体集群1 - 9个不同材质的球体
-Sphere Sphere1 Phong_Mirror
-N 0 0 1
-P -80 0 0
-R 25
-
-Sphere Sphere2 Phong_Glass
+Sphere Sphere Glass
 N 0 0 1
 P 0 0 0
-R 30
-
-Sphere Sphere3 Phong_Metal
-N 0 0 1
-P 80 0 0
-R 28
-
-Sphere Sphere4 Blue
-N 0 0 1
-P -40 60 0
-R 20
-
-Sphere Sphere5 Yellow
-N 0 0 1
-P 40 60 0
-R 22
-
-Sphere Sphere6 Phong_Plastic
-N 0 0 1
-P -60 -60 0
-R 18
-
-Sphere Sphere7 Red
-N 0 0 1
-P 0 -60 0
-R 24
-
-Sphere Sphere8 Green
-N 0 0 1
-P 60 -60 0
-R 26
-
-Sphere Sphere9 White
-N 0 0 1
-P 0 120 0
-R 15
+R 50
 
 End
 
-Begin Model
-
-Model SphereCluster2
-Translation 150 -228 900
-
-# 球体集群2 - 8个球体
-Sphere Sphere10 Blue
-N 0 0 1
-P -60 0 0
-R 20
-
-Sphere Sphere11 Yellow
-N 0 0 1
-P 60 0 0
-R 25
-
-Sphere Sphere12 Phong_Mirror
-N 0 0 1
-P 0 80 0
-R 18
-
-Sphere Sphere13 Phong_Glass
-N 0 0 1
-P -40 -80 0
-R 22
-
-Sphere Sphere14 Phong_Metal
-N 0 0 1
-P 40 -80 0
-R 19
-
-Sphere Sphere15 Red
-N 0 0 1
-P -80 80 0
-R 16
-
-Sphere Sphere16 Green
-N 0 0 1
-P 80 80 0
-R 21
-
-Sphere Sphere17 White
-N 0 0 1
-P 0 -120 0
-R 23
-
-End
 
 Begin Model
 
-Model ComplexPyramid
-Translation 0 -78 800
+Model Pyramid
+Translation 150 -78 900
 
-# 复杂金字塔结构 - 12个三角形
-Triangle Base1 White
+Triangle Bottom White
 N 0 1 0
-V1 -80 -200 80
-V2 80 -200 80
-V3 0 -200 -80
+V1 -50 -200 50
+V2 50 -200 50
+V3 0 -200 -50
 
-Triangle Base2 White
-N 0 1 0
-V1 80 -200 80
-V2 80 -200 -80
-V3 0 -200 -80
+Triangle T1 White
+N -0.891953 0.0743294 -0.445977
+V1 -50 -200 50
+V2 0 -200 -50
+V3 0 100 0
 
-Triangle Base3 White
-N 0 1 0
-V1 80 -200 -80
-V2 -80 -200 -80
-V3 0 -200 -80
+Triangle T2 White
+N 0.891953 0.0743294 -0.445977
+V1 0 -200 -50
+V2 50 -200 50
+V3 0 100 0
 
-Triangle Base4 White
-N 0 1 0
-V1 -80 -200 -80
-V2 -80 -200 80
-V3 0 -200 -80
-
-Triangle Side1 Blue
-N -0.707 0.354 -0.612
-V1 -80 -200 80
-V2 0 -200 -80
-V3 0 150 0
-
-Triangle Side2 Blue
-N 0.707 0.354 -0.612
-V1 0 -200 -80
-V2 80 -200 80
-V3 0 150 0
-
-Triangle Side3 Green
-N 0.707 0.354 0.612
-V1 80 -200 80
-V2 80 -200 -80
-V3 0 150 0
-
-Triangle Side4 Green
-N -0.707 0.354 0.612
-V1 80 -200 -80
-V2 -80 -200 -80
-V3 0 150 0
-
-Triangle Side5 Red
-N -0.707 0.354 0.612
-V1 -80 -200 -80
-V2 -80 -200 80
-V3 0 150 0
-
-Triangle Side6 Red
-N 0 0.447 0.894
-V1 -80 -200 80
-V2 80 -200 80
-V3 0 150 0
-
-# 内部支撑结构
-Triangle Support1 Yellow
-N 0.832 0.333 0.444
-V1 -40 -100 40
-V2 0 150 0
-V3 40 -100 40
-
-Triangle Support2 Yellow
-N -0.832 0.333 0.444
-V1 40 -100 -40
-V2 0 150 0
-V3 -40 -100 -40
+Triangle T3 White
+N 0 0.164399 0.986394
+V1 -50 -200 50
+V2 50 -200 50
+V3 0 100 0
 
 End
 
-Begin Model
-
-Model GeometricGrid
-Translation 0 0 1200
-
-# 几何网格 - 64个小三角形组成的复杂结构
-# 第一层
-Triangle Grid1_1 White
-N 0 0 1
-V1 -200 200 0
-V2 -180 200 0
-V3 -200 180 0
-
-Triangle Grid1_2 White
-N 0 0 1
-V1 -180 200 0
-V2 -180 180 0
-V3 -200 180 0
-
-Triangle Grid1_3 Blue
-N 0 0 1
-V1 -160 200 0
-V2 -140 200 0
-V3 -160 180 0
-
-Triangle Grid1_4 Blue
-N 0 0 1
-V1 -140 200 0
-V2 -140 180 0
-V3 -160 180 0
-
-# 继续添加更多网格三角形...
-# 这里应该继续添加60个类似的三角形来组成8x8网格
-# 为了简洁，这里只显示前4个，实际使用时需要补充完整
-
-# 第二层（偏移）
-Triangle Grid2_1 Green
-N 0 0 1
-V1 -190 190 20
-V2 -170 190 20
-V3 -190 170 20
-
-Triangle Grid2_2 Green
-N 0 0 1
-V1 -170 190 20
-V2 -170 170 20
-V3 -190 170 20
-
-# ... 继续添加更多层和更多三角形
-
-End
-
-Begin Model
-
-Model FloatingObjects
-Translation -100 100 1000
-
-# 悬浮物体 - 各种小几何体
-Sphere FloatSphere1 Phong_Mirror
-N 0 0 1
-P 0 0 0
-R 8
-
-Sphere FloatSphere2 Phong_Glass
-N 0 0 1
-P 30 20 0
-R 6
-
-Sphere FloatSphere3 Blue
-N 0 0 1
-P -30 40 0
-R 10
-
-Sphere FloatSphere4 Yellow
-N 0 0 1
-P 20 -30 0
-R 7
-
-Sphere FloatSphere5 Red
-N 0 0 1
-P -20 -40 0
-R 9
-
-# 悬浮三角形
-Triangle FloatTri1 Green
-N 0.577 0.577 0.577
-V1 50 50 0
-V2 60 50 0
-V3 55 60 0
-
-Triangle FloatTri2 White
-N -0.577 0.577 0.577
-V1 -50 50 0
-V2 -60 50 0
-V3 -55 60 0
-
-Triangle FloatTri3 Blue
-N 0.577 -0.577 0.577
-V1 50 -50 0
-V2 60 -50 0
-V3 55 -60 0
-
-Triangle FloatTri4 Yellow
-N -0.577 -0.577 0.577
-V1 -50 -50 0
-V2 -60 -50 0
-V3 -55 -60 0
-
-End
-
-Begin Model
-
-Model ComplexStructure
-Translation 100 50 950
-
-# 复杂结构 - 嵌套几何体
-# 外层大球体
-Sphere OuterSphere Phong_Glass
-N 0 0 1
-P 0 0 0
-R 40
-
-# 内层小球体
-Sphere InnerSphere1 Phong_Mirror
-N 0 0 1
-P -15 0 0
-R 8
-
-Sphere InnerSphere2 Phong_Metal
-N 0 0 1
-P 15 0 0
-R 8
-
-Sphere InnerSphere3 Blue
-N 0 0 1
-P 0 -15 0
-R 8
-
-Sphere InnerSphere4 Red
-N 0 0 1
-P 0 15 0
-R 8
-
-# 支撑结构三角形
-Triangle SupportTri1 White
-N 0.707 0.707 0
-V1 -28 28 0
-V2 -35 35 0
-V3 -21 35 0
-
-Triangle SupportTri2 White
-N -0.707 0.707 0
-V1 28 28 0
-V2 35 35 0
-V3 21 35 0
-
-Triangle SupportTri3 White
-N 0.707 -0.707 0
-V1 -28 -28 0
-V2 -35 -35 0
-V3 -21 -35 0
-
-Triangle SupportTri4 White
-N -0.707 -0.707 0
-V1 28 -28 0
-V2 35 -35 0
-V3 21 -35 0
-
-End
 
 Begin Light
 
-Point MainLight
+Point TopLight
 IRV 1.0 1.0 1.0
 P 0 273 1028
-
-Point SecondaryLight
-IRV 0.5 0.5 0.5
-P -200 200 900
-
-Point FillLight
-IRV 0.3 0.3 0.3
-P 200 -200 1100
 
 End

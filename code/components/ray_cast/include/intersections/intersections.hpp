@@ -8,7 +8,6 @@
 #include "HitRecord.hpp"
 #include "Ray.hpp"
 #include "scene/Scene.hpp"
-#include "AABB.hpp"
 
 namespace RayCast
 {
@@ -21,30 +20,28 @@ namespace RayCast
         // t: 三角形
         // tMin, tMax: 相交距离范围
         // 返回相交记录
-        HitRecord xTriangle(const Ray &ray, const Triangle &t, float tMin = 0.f, float tMax = FLOAT_INF);
+        HitRecord xTriangle(const Ray& ray, const Triangle& t, float tMin = 0.f, float tMax = FLOAT_INF);
 
         // 光线与球体的相交测试
         // ray: 光线
         // s: 球体
         // tMin, tMax: 相交距离范围
         // 返回相交记录
-        HitRecord xSphere(const Ray &ray, const Sphere &s, float tMin = 0.f, float tMax = FLOAT_INF);
+        HitRecord xSphere(const Ray& ray, const Sphere& s, float tMin = 0.f, float tMax = FLOAT_INF);
 
         // 光线与平面的相交测试
         // ray: 光线
         // p: 平面
         // tMin, tMax: 相交距离范围
         // 返回相交记录
-        HitRecord xPlane(const Ray &ray, const Plane &p, float tMin = 0.f, float tMax = FLOAT_INF);
+        HitRecord xPlane(const Ray& ray, const Plane& p, float tMin = 0.f, float tMax = FLOAT_INF);
 
         // 光线与面光源的相交测试
         // ray: 光线
         // a: 面光源
         // tMin, tMax: 相交距离范围
         // 返回相交记录
-        HitRecord xAreaLight(const Ray &ray, const AreaLight &a, float tMin = 0.f, float tMax = FLOAT_INF);
-
-        bool xAABB(const Ray &ray, const AABB &aabb, float tMin = 0.0f, float tMax = FLOAT_INF);
+        HitRecord xAreaLight(const Ray& ray, const AreaLight& a, float tMin = 0.f, float tMax = FLOAT_INF);
     }
 }
 

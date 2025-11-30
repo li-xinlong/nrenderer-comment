@@ -8,7 +8,7 @@
 #include "Shader.hpp"
 #include "Lambertian.hpp"
 #include "Phong.hpp"
-
+#include "Glass.hpp"
 namespace RayCast
 {
     // 着色器创建器类
@@ -23,18 +23,22 @@ namespace RayCast
         // material: 材质参数
         // t: 纹理数组
         // 返回创建的着色器指针
-        SharedShader create(Material& material, vector<Texture>& t) {
+        SharedShader create(Material &material, vector<Texture> &t)
+        {
             SharedShader shader{nullptr};
             // 根据材质类型选择着色器
             switch (material.type)
             {
-            case 0:  // Lambert材质
+            case 0: // Lambert材质
                 shader = make_shared<Lambertian>(material, t);
                 break;
-            case 1:  // Phong材质
+            case 1: // Phong材质
                 shader = make_shared<Phong>(material, t);
                 break;
-            default:  // 默认使用Lambert材质
+            case 2: // Glass材质
+                shader = make_shared<Glass>(material, t);
+                break;
+            default: // 默认使用Lambert材质
                 shader = make_shared<Lambertian>(material, t);
                 break;
             }

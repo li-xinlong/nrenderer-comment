@@ -1,5 +1,3 @@
-// 渲染组件适配器实现
-// 提供了光线投射渲染器与渲染系统的接口适配
 #include "server/Server.hpp"
 #include "component/RenderComponent.hpp"
 #include "RayCastRenderer.hpp"
@@ -9,38 +7,41 @@ using namespace NRenderer;
 
 namespace RayCast
 {
-	// 适配器类
-	// 继承自渲染组件，实现渲染接口
 	class Adapter : public RenderComponent
 	{
 	public:
-		// 渲染场景
-		// spScene: 场景指针
-		void render(SharedScene spScene) {
-			// 创建光线投射渲染器
-			bool useAcceleration = true;
-			RayCastRenderer rayCast{ spScene,useAcceleration };
-			// 执行渲染
-			auto result = rayCast.render();
+		void render(SharedScene spScene)
+		{
+			// 创建光子映射渲染器
+			RayCastRenderer renderer{ spScene };
+
+			// 设置光子映射参数
+			renderer.setPhotonCount(100);		 // 默认10000个光子
+			renderer.setMaxBounces(5);			 // 最大反弹5次
+			renderer.setUsePhotonMapping(true); // 启用光子映射
+
+			auto result = renderer.render();
+
 			// 获取渲染结果并设置到屏幕
 			auto [pixels, width, height] = result;
 			getServer().screen.set(pixels, width, height);
+
 			// 释放渲染结果
-			rayCast.release(result);
+			renderer.release(result);
 		}
 	};
 }
 
-// 渲染器描述信息
 const static string description =
-"Ray Cast Renderer.\n"
-"Supported:\n"
-" - Lambertian and Phong\n"
-" - One Point Light\n"
-" - Triangle, Sphere, Plane\n"
-" - Simple Pinhole Camera\n\n"
-"Please use ray_cast.scn"
-;
+"Photon Mapping Renderer with KD-Tree Optimization.\n"
+"Features:\n"
+" - Photon Mapping Algorithm\n"
+" - KD-Tree Accelerated Photon Search\n"
+" - Global Photon Map\n"
+" - Direct + Indirect Lighting\n"
+" - Shadow Calculation\n"
+" - Energy Conservation Verification\n"
+" - Supports 1,000-100,000 photons\n"
+"Please use Cornell Box scene for best results";
 
-// 注册渲染器
 REGISTER_RENDERER(RayCast, description, RayCast::Adapter);
